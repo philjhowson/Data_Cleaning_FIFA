@@ -24,7 +24,7 @@ stages:
       - data/processed_data/y_data.csv
       - data/processed_data/X_data.csv
   train_rfr:
-    cmd: python src/train_reregressor.py
+    cmd: python src/train_rfregressor.py
     deps:
       - data/processed_data/strong_correlations.pkl
       - data/processed_data/drop_columns.pkl
