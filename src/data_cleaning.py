@@ -12,7 +12,7 @@ for column in data.columns:
     if data[column].isna().sum():
         null_values.append(column)
 
-print(null_values)
+print(f"Columns {null_values} have NaN values.")
 
 """
 I know the column here contains na values, but I also checked and it contains no zeroes. So, here,
@@ -27,9 +27,9 @@ def into_numeric(string):
     if pd.isna(string):
         return 0
     if 'K' in str(string):
-        string = float(string.replace('K', '')) * 1000
-        return int(string)
-    return int(string)
+        string = float(string[:-1])
+        return float(string)
+    return float(string)
 
 data['Hits'] = hits.apply(into_numeric)
 
@@ -59,7 +59,7 @@ data['Height (cm)'] = height.apply(into_cm).str.replace('cm', '').astype(float).
 def into_kg(string):
     if 'lbs' in string:
         new_string = string.split('l')[0]
-        new_value = str(int(new_string) * 0.454) + 'kg'
+        new_value = str(float(new_string) * 0.454) + 'kg'
         return new_value
     return string
 
@@ -72,7 +72,7 @@ day, month, year joined and drop the 'Joined' column.
 data['Joined'] = pd.to_datetime(data['Joined'], format='%b %d, %Y')
 
 data['Year Joined'] = data['Joined'].dt.year
-data['Month Joined'] = data['Joined'].dt.year
+data['Month Joined'] = data['Joined'].dt.month
 data['Day Joined'] = data['Joined'].dt.day
 
 data.drop(columns = ['Joined'], inplace = True)
@@ -86,9 +86,9 @@ agents. Calculate the average start year and give free agents that as their star
 
 start = data['Contract'].str.replace(r'^[A-Za-z]+ \d{1,2}, ', '', regex = True).apply(lambda x : x.split(' ')[0])
 mean_start = pd.to_numeric(start, errors = 'coerce').mean().astype(int)
-data['Start Date'] = pd.to_numeric(start, errors = 'coerce').fillna(mean_start).astype(int)
-data['On Loan'] = data['Contract'].str.contains('On Loan', na = False).astype(int)
-data['Free Agent'] = data['Contract'].str.contains('Free', na = False).astype(int)
+data['Start Date'] = pd.to_numeric(start, errors = 'coerce').fillna(mean_start).astype(float)
+data['On Loan'] = data['Contract'].str.contains('On Loan', na = False).astype(float)
+data['Free Agent'] = data['Contract'].str.contains('Free', na = False).astype(float)
 
 data.drop(columns = ['Contract'], inplace = True)
 
@@ -102,19 +102,27 @@ value = data['Value'].str.replace('€', '')
 
 def into_millions(string):
     if 'K' in string:
-        return '.' + string
-    return string
+        return float(string.replace('K', '').strip()) / 1000
+    if 'M' in string:
+        return float(string.replace('M', '').strip())
+    return float(string)
 
 value = value.apply(into_millions)
-data['Value (€M)'] = value.str.replace('M', '').str.replace('K', '').astype(float)
+data['Value (€M)'] = value
 data.drop(columns = ['Value'], inplace = True)
 
 """
-get ride € and K characters in the 'Wage' column and convert to float in order to get
+get rid € and K characters in the 'Wage' column and convert to float in order to get
 the 'Wage (€K)' column. Drop the original column.
 """
 
-data['Wage (€K)'] = data['Wage'].str.replace('€', '').str.replace('K', '').astype(float)
+def into_k(string):
+    if 'K' in string:
+        return float(string.replace('€', '').replace('K', '').strip())
+    return float(string.replace('€', '').strip()) / 1000
+
+wage = data['Wage'].apply(into_k)
+data['Wage (€K)'] = wage
 data.drop(columns = ['Wage'], inplace = True)
 
 """
@@ -123,9 +131,9 @@ Remove the € symbol from the 'Release Clause' and apply the function into_mill
 Drop the original column.
 """
 
-value = data['Release Clause'].str.replace('€', '')
-value = value.apply(into_millions)
-data['Release Clause (€M)'] = value.str.replace('M', '').str.replace('K', '').astype(float)
+release = data['Release Clause'].str.replace('€', '')
+release = release.apply(into_millions)
+data['Release Clause (€M)'] = release
 data.drop(columns = ['Release Clause'], inplace = True)
 
 """
@@ -133,9 +141,9 @@ remove the '★' from the 'W/F', 'SM', and 'IR' columns and the '\n'
 from the 'Club' column.
 """
 
-data['W/F'] = data['W/F'].str.replace(' ★', '').astype(int)
-data['SM'] = data['SM'].str.replace('★', '').astype(int)
-data['IR'] = data['IR'].str.replace(' ★', '').astype(int)
+data['W/F'] = data['W/F'].str.replace(' ★', '').astype(float)
+data['SM'] = data['SM'].str.replace('★', '').astype(float)
+data['IR'] = data['IR'].str.replace(' ★', '').astype(float)
 data['Club'] = data['Club'].str.replace('\n', '')
 
 data.to_csv('data/processed_data/cleaned_data.csv', index = False)
