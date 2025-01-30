@@ -17,8 +17,8 @@ with open('data/processed_data/strong_correlations.pkl', 'rb') as f:
 with open('data/processed_data/drop_columns.pkl', 'rb') as f:
     drop_columns = pickle.load(f)
 
-X = pd.read_csv('X_data.csv')
-y = pd.read_csv('y_data.csv')
+X = pd.read_csv('data/processed_data/X_data.csv')
+y = pd.read_csv('data/processed_data/y_data.csv')
 
 X = X[strong].drop(columns = drop_columns)
 
