@@ -82,7 +82,3 @@ stages:
     outs:
       - images/training_test_scores.png
       - images/feature_importance.png
-    metrics:
-      - metrics/fnn_v7_scores.pkl
-      - metrics/fnn_v7_shap_values.pkl
-      - metrics/feature_importance_fnn_v7.csv
