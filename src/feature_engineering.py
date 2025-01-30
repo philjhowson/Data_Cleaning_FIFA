@@ -15,8 +15,7 @@ of possible features was available and easy to access should further experimenta
 be desired.
 """
 
-data.drop(columns = ['ID', 'Name', 'LongName', 'photoUrl', 'playerUrl', 'Nationality', 'Club',
-                     'Month Joined', 'Day Joined', 'Loan Date End', 'Positions', 'Preferred Foot'], inplace = True)
+data.drop(columns = ['ID', 'Name', 'LongName', 'photoUrl', 'playerUrl', 'Nationality', 'Club', 'Month Joined', 'Day Joined', 'Loan Date End', 'Positions', 'Preferred Foot'], inplace = True)
 
 enc = OneHotEncoder(sparse_output = False)
 
