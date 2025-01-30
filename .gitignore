@@ -4,5 +4,16 @@ metrics/
 models/
 images/
 
-#track .dvc files
+#track .dvc and .gitignore files
 !data/*.dvc
+!data/.gitignore
+!data/raw_data/*.dvc
+!data/raw_data/.gitignore
+!data/processed_data/*.dvc
+!data/processed_data/.gitignore
+!metrics/*.dvc
+!metrics/.gitignore
+!models/*.dvc
+!models/.gitignore
+!images/*.dvc
+!images/.gitignore
