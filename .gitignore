@@ -1,8 +1,0 @@
-#Ignore data, metrics, models, and images
-data/
-metrics/
-models/
-images/
-
-#track .dvc files
-!data/*.dvc
