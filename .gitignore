@@ -5,4 +5,4 @@ models/
 images/
 
 #track .dvc files
-data/*.dvc
+!data/*.dvc
