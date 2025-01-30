@@ -3,4 +3,6 @@ data/
 metrics/
 models/
 images/
-/data
+
+#track .dvc files
+data/*.dvc
