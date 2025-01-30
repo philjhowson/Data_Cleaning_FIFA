@@ -86,4 +86,3 @@ stages:
       - metrics/fnn_v7_scores.pkl
       - metrics/fnn_v7_shap_values.pkl
       - metrics/feature_importance_fnn_v7.csv
-    cache: true
