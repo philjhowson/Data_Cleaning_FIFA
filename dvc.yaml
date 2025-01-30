@@ -3,12 +3,14 @@ stages:
     cmd: python src/data_cleaning.py
     deps:
       - 'data/raw_data/fifa21 raw data v2.csv'
+      - src/data_cleaning.py
     outs:
       - data/processed_data/cleaned_data.csv
   explore:
     cmd: python src/data_exploration.py
     deps:
       - data/processed_data/cleaned_data.csv
+      - src/data_exploration.py
     outs:
       - data/processed_data/strong_correlations.pkl
       - data/processed_data/weak_correlations.pkl
@@ -17,6 +19,7 @@ stages:
     cmd: python src/feature_engineering.py
     deps:
       - data/processed_data/cleaned_data.csv
+      - src/feature_engineering.py
     outs:
       - data/processed_data/y_data.csv
       - data/processed_data/X_data.csv
@@ -27,6 +30,7 @@ stages:
       - data/processed_data/drop_columns.pkl
       - data/processed_data/y_data.csv
       - data/processed_data/X_data.csv
+      - src/train_reregressor.py
     outs:
       - data/processed_data/X_train.csv
       - data/processed_data/X_test.csv
@@ -44,6 +48,7 @@ stages:
       - data/processed_data/X_test.csv
       - data/processed_data/y_train.csv
       - data/processed_data/y_test.csv
+      - src/train_xgbregressor.py
     outs:
       - models/XGBRegressor_best_params.pkl
       - models/XBGRegressor.pkl
@@ -57,6 +62,7 @@ stages:
       - data/processed_data/X_test.csv
       - data/processed_data/y_train.csv
       - data/processed_data/y_test.csv
+      - src/train_fnn.py
     outs:
       - models/fnn_v7_best_save.pth
     metrics:
@@ -64,7 +70,7 @@ stages:
       - metrics/fnn_v7_shap_values.pkl
       - metrics/feature_importance_fnn_v7.csv
   visualize_results:
-    cmd: python src/train_fnn.py
+    cmd: python src/plot_results.py
     deps:
       - metrics/rfr_scores.pkl
       - metrics/xgb_scores.pkl
@@ -72,6 +78,7 @@ stages:
       - metrics/feature_importance_rfr.csv
       - metrics/feature_importance_xgb.csv
       - metrics/feature_importance_fnn_v7.csv
+      - src/plot_results.py
     outs:
       - images/training_test_scores.png
       - images/feature_importance.png
