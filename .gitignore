@@ -1,0 +1,5 @@
+#Ignore data, metrics, models, and images
+data/
+metrics/
+models/
+images/
