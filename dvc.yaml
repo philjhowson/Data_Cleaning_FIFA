@@ -30,7 +30,7 @@ stages:
       - data/processed_data/drop_columns.pkl
       - data/processed_data/y_data.csv
       - data/processed_data/X_data.csv
-      - src/train_reregressor.py
+      - src/train_rfregressor.py
     outs:
       - data/processed_data/X_train.csv
       - data/processed_data/X_test.csv
