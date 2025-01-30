@@ -1,0 +1,10 @@
+[core]
+    remote = origin
+['remote "origin"']
+    url = s3://dvc
+    endpointurl = https://dagshub.com/philjhowson/Data_Cleaning_FIFA.s3
+    access_key_id = f7421f4858c76bbdf72487ddbf28108f4003de70
+    secret_access_key = f7421f4858c76bbdf72487ddbf28108f4003de70
+    region = us-east-1
+['remote "myremote"']
+    url = https://dagshub.com/philjhowson/Data_Cleaning_FIFA.dvc
