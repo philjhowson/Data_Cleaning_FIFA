@@ -67,10 +67,11 @@ with open('models/RandomForestRegressor.pkl', 'wb') as f:
 with open("metrics/rfr_scores.json", "w") as f:
     json.dump(rfr_scores, f, indent = 4)
 
-feature_importance_rfr = {
-    'Feature': X_train.columns,
-    'Importance_rfr': rfr.feature_importances_
-}
+feature_importance_rfr = pd.Series(rfr.feature_importances_,
+    index = X_train.columns,
+)
+
+feature_importance = feature_importance_rfr.to_dict()
 
 with open("metrics/feature_importance_rfr.json", "w") as f:
-    json.dump(feature_importance_rfr, f, indent = 4)
+    json.dump(feature_importance, f, indent = 4)
