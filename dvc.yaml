@@ -41,8 +41,8 @@ stages:
       - models/RandomForestRegressor_best_params.pkl
       - models/RandomForestRegressor.pkl
     metrics:
-      - metrics/rfr_scores.pkl
-      - metrics/feature_importance_rfr.csv
+      - metrics/rfr_scores.json
+      - metrics/feature_importance_rfr.json
   train_xgb:
     cmd: python src/train_xgbregressor.py
     deps:
@@ -55,8 +55,8 @@ stages:
       - models/XGBRegressor_best_params.pkl
       - models/XBGRegressor.pkl
     metrics:
-      - metrics/xgb_scores.pkl
-      - metrics/feature_importance_xgb.csv
+      - metrics/xgb_scores.json
+      - metrics/feature_importance_xgb.json
   train_fnn:
     cmd: python src/train_fnn.py
     deps:
@@ -67,19 +67,21 @@ stages:
       - src/train_fnn.py
     outs:
       - models/fnn_v7_best_save.pth
-    metrics:
-      - metrics/fnn_v7_scores.pkl
       - metrics/fnn_v7_shap_values.pkl
-      - metrics/feature_importance_fnn_v7.csv
+      - images/training_history_fnn.png
+      - images/shap_summary_plot.png
+    metrics:
+      - metrics/fnn_v7_scores.json
+      - metrics/feature_importance_fnn_v7.json
   visualize_results:
     cmd: python src/plot_results.py
     deps:
-      - metrics/rfr_scores.pkl
-      - metrics/xgb_scores.pkl
-      - metrics/fnn_v7_scores.pkl.csv
-      - metrics/feature_importance_rfr.csv
-      - metrics/feature_importance_xgb.csv
-      - metrics/feature_importance_fnn_v7.csv
+      - metrics/rfr_scores.json
+      - metrics/xgb_scores.json
+      - metrics/fnn_v7_scores.json
+      - metrics/feature_importance_rfr.json
+      - metrics/feature_importance_xgb.json
+      - metrics/feature_importance_fnn_v7.json
       - src/plot_results.py
     outs:
       - images/training_test_scores.png
