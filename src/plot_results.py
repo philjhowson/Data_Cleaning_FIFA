@@ -66,7 +66,7 @@ with open('metrics/feature_importance_xgb.json', 'r') as f:
 with open('metrics/feature_importance_fnn_v7.json', 'r') as f:
     fnn_features = json.load(f)
 
-feature_importance = pd.DataFrame(fnn_features.values(), index = fnn_features.keys(), columns = ['Importance_rfr']).reset_index().rename(columns = {'index' : 'Feature'})
+feature_importance = pd.DataFrame(list(fnn_features.items()), columns=['Feature', 'Importance_rfr'])
 
 feature_importance['Importance_xgb'], feature_importance['Importance_fnn'] = xgb_features.values(), fnn_features.values()
 
