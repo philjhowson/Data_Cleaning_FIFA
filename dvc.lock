@@ -1,0 +1,18 @@
+schema: '2.0'
+stages:
+  clean:
+    cmd: python src/data_cleaning.py
+    deps:
+    - path: data/raw_data/fifa21_raw_data.csv
+      hash: md5
+      md5: 40f89a7c133619cb5cba5a679c059d6c
+      size: 8433654
+    - path: src/data_cleaning.py
+      hash: md5
+      md5: d08bf242b7ecd5e72171a01b6cb7addf
+      size: 5545
+    outs:
+    - path: data/processed_data/cleaned_data.csv
+      hash: md5
+      md5: e90d5d04c01243c3af51ea0cb803b1f4
+      size: 8027267

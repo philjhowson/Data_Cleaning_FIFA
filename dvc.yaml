@@ -1,0 +1,8 @@
+stages:
+  clean:
+    cmd: python src/data_cleaning.py
+    deps:
+      - data/raw_data/fifa21_raw_data.csv
+      - src/data_cleaning.py
+    outs:
+      - data/processed_data/cleaned_data.csv
