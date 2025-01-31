@@ -4,6 +4,7 @@ from sklearn.model_selection import GridSearchCV
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import r2_score
 import pickle
+import json
 
 """
 load in the strong correlation columns and the columns to
@@ -63,8 +64,8 @@ print(f"Training r2 score: {rfr_train_score}\nTest r2 score: {rfr_test_score}")
 with open('models/RandomForestRegressor.pkl', 'wb') as f:
     pickle.dump(rfr, f)
 
-with open('metrics/rfr_scores.pkl', 'wb') as f:
-    pickle.dump(rfr_scores, f)
+with open("metrics/rfr_scores.json", "w") as json:
+    json.dump(rfr_scores, json, indent = 4)
 
 feature_importance_rfr = pd.DataFrame({
     'Feature': X_train.columns,
