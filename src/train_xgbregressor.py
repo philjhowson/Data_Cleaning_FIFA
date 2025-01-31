@@ -3,6 +3,7 @@ import numpy as np
 from xgboost import XGBRegressor
 from sklearn.model_selection import GridSearchCV
 from sklearn.metrics import r2_score
+import json
 import pickle
 
 """
@@ -60,18 +61,19 @@ with open('models/XBGRegressor.pkl', 'wb') as f:
 xgb_scores = {'Training Score' : [xgb_train_score],
               'Test Score' : [xgb_test_score]}
 
-with open('metrics/xgb_scores.pkl', 'wb') as f:
-    pickle.dump(xgb_scores, f)
+with open('metrics/xgb_scores.json', 'w') as f:
+    json.dump(xgb_scores, f, indent = 4)
 
 """
 finally, calculate the feature importance and
 save that as a dataframe.
 """
 
-feature_importance_xgb = pd.DataFrame({
-    'Feature': X_train.columns,
-    'Importance_xgb': xgb.feature_importances_
-})
+feature_importance_xgb = pd.Series(xgb.feature_importances_,
+    index = X_train.columns,
+)
 
+feature_importance = feature_importance_xgb.to_dict()
 
-feature_importance_xgb.to_csv('metrics/feature_importance_xgb.csv', index = False)
+with open('metrics/feature_importance_xgb.json', 'w') as f:
+    json.dump(feature_importance, f, indent = 4)

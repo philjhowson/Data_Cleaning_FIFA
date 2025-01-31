@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-import pickle
+import json
 import matplotlib.pyplot as plt
 
 """
@@ -8,14 +8,14 @@ load in all the scores and combine them into a single
 dictionary. Convert them to a df.
 """
 
-with open('metrics/rfr_scores.pkl', 'rb') as f:
-    rfr_scores = pickle.load(f)
+with open('metrics/rfr_scores.json', 'r') as f:
+    rfr_scores = json.load(f)
 
-with open('metrics/xgb_scores.pkl', 'rb') as f:
-    xgb_scores = pickle.load(f)
+with open('metrics/xgb_scores.json', 'r') as f:
+    xgb_scores = json.load(f)
 
-with open('metrics/fnn_v7_scores.pkl', 'rb') as f:
-    fnn_scores = pickle.load(f)
+with open('metrics/fnn_v7_scores.json', 'r') as f:
+    fnn_scores = json.load(f)
 
 scores = {'Training Score': [rfr_scores['Training Score'][0], xgb_scores['Training Score'][0], fnn_scores['Training Score'][0]],
           'Test Score': [rfr_scores['Test Score'][0], xgb_scores['Test Score'][0], fnn_scores['Test Score'][0]]}

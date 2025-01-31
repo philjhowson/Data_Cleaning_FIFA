@@ -64,7 +64,7 @@ print(f"Training r2 score: {rfr_train_score}\nTest r2 score: {rfr_test_score}")
 with open('models/RandomForestRegressor.pkl', 'wb') as f:
     pickle.dump(rfr, f)
 
-with open("metrics/rfr_scores.json", "w") as f:
+with open('metrics/rfr_scores.json', 'w') as f:
     json.dump(rfr_scores, f, indent = 4)
 
 feature_importance_rfr = pd.Series(rfr.feature_importances_,
@@ -73,5 +73,5 @@ feature_importance_rfr = pd.Series(rfr.feature_importances_,
 
 feature_importance = feature_importance_rfr.to_dict()
 
-with open("metrics/feature_importance_rfr.json", "w") as f:
+with open('metrics/feature_importance_rfr.json', 'w') as f:
     json.dump(feature_importance, f, indent = 4)

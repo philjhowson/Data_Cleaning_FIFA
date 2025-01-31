@@ -296,8 +296,8 @@ dataset and save the shap values.
 scores = {'Training Score' : [max(history['train_r2'])],
           'Test Score' : [test_r2]}
 
-with open(f'metrics/fnn_v{version}_scores.pkl', 'wb') as f:
-    pickle.dump(scores, f)
+with open('metrics/fnn_v{version}_scores.json', 'w') as f:
+    json.dump(scores, f, indent = 4)
 
 explainer = shap.DeepExplainer(model, X_train.to(device))
 shap_values = explainer.shap_values(X_test.to(device))
@@ -320,9 +320,11 @@ total_importance = mean_shap_values.sum()
 
 normalized_importance = mean_shap_values / total_importance
 
-feature_importance_fnn = pd.DataFrame({
-    'Feature': X.columns,
-    'Importance_fnn': normalized_importance
-})
+feature_importance_fnn = pd.Series(normalized_importance,
+    index = X.columns,
+)
 
-feature_importance_fnn.to_csv(f'metrics/feature_importance_fnn_v{version}.csv', index = False)
+feature_importance = feature_importance_fnn.to_dict()
+
+with open('metrics/feature_importance_fnn.json', 'w') as f:
+    json.dump(feature_importance, f, indent = 4)
