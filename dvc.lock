@@ -241,8 +241,8 @@ stages:
       size: 121
     - path: src/plot_results.py
       hash: md5
-      md5: cf66790d40d57e04fbeb4bcd292c8a1b
-      size: 3680
+      md5: 75ea9c02b7a0fa02bac319e21b1bcd5d
+      size: 3611
     outs:
     - path: images/feature_importance.png
       hash: md5
