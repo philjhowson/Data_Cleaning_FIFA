@@ -260,6 +260,9 @@ for index, axes in enumerate(ax.flat):
     axes.set_ylabel(y_index[index])
     axes.legend(loc = 'best')
 
+plt.savefig('images/training_history_fnn.png', format = 'png')
+plt.close()
+
 """
 because the final model may not be the best model, reload the best weights
 in order to evaluate the results. The coding is the same as the validation
@@ -297,11 +300,13 @@ dataset and save the shap values.
 scores = {'Training Score' : [max(history['train_r2'])],
           'Test Score' : [test_r2]}
 
-with open('metrics/fnn_v{version}_scores.json', 'w') as f:
+with open(f'metrics/fnn_v{version}_scores.json', 'w') as f:
     json.dump(scores, f, indent = 4)
 
+X_test_sample = torch.tensor(x_test.sample(2000).values, dtype = torch.float32)
+
 explainer = shap.DeepExplainer(model, X_train.to(device))
-shap_values = explainer.shap_values(X_test.to(device))
+shap_values = explainer.shap_values(X_test_sample)
 
 with open(f'metrics/fnn_v{version}_shap_values.pkl', 'wb') as f:
     pickle.dump(shap_values, f)
@@ -314,7 +319,10 @@ are saved.
 """
 
 shap_values = shap_values.squeeze(-1)
-shap.summary_plot(shap_values, X_test, feature_names = X.columns)
+shap.summary_plot(shap_values, X_test_sample, feature_names = x_test.columns)
+
+plt.savefig('images/shap_summary_plot.png', format = 'png')
+plt.close()
 
 mean_shap_values = np.abs(shap_values).mean(axis = 0).flatten()
 total_importance = mean_shap_values.sum()
@@ -327,5 +335,5 @@ feature_importance_fnn = pd.Series(normalized_importance,
 
 feature_importance = feature_importance_fnn.to_dict()
 
-with open('metrics/feature_importance_fnn.json', 'w') as f:
+with open(f'metrics/feature_importance_fnn.json', 'w') as f:
     json.dump(feature_importance, f, indent = 4)
