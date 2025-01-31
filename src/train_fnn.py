@@ -335,5 +335,5 @@ feature_importance_fnn = pd.Series(normalized_importance,
 
 feature_importance = feature_importance_fnn.to_dict()
 
-with open(f'metrics/feature_importance_fnn.json', 'w') as f:
+with open(f'metrics/feature_importance_fnn_v{version}.json', 'w') as f:
     json.dump(feature_importance, f, indent = 4)

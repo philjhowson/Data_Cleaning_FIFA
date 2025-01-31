@@ -57,11 +57,18 @@ load in the feature importances and combine them into a single
 df.
 """
 
-feature_importance = pd.read_csv('metrics/feature_importance_rfr.csv')
-xgb = pd.read_csv('metrics/feature_importance_xgb.csv')
-fnn = pd.read_csv('metrics/feature_importance_fnn_v7.csv')
+with open('metrics/feature_importance_rfr.json', 'r') as f:
+    rfr_features = json.load(f)
 
-feature_importance['Importance_xgb'], feature_importance['Importance_fnn'] = xgb['Importance_xgb'], fnn['Importance_fnn']
+with open('metrics/feature_importance_xgb.json', 'r') as f:
+    xgb_features = json.load(f)
+
+with open('metrics/feature_importance_fnn_v7.json', 'r') as f:
+    fnn_features = json.load(f)
+
+feature_importance = pd.DataFrame(fnn_features.values(), index = fnn_features.keys(), columns = ['Importance_rfr']).reset_index().rename(columns = {'index' : 'Feature'})
+
+feature_importance['Importance_xgb'], feature_importance['Importance_fnn'] = xgb_features.values(), fnn_features.values()
 
 """
 plot the feature imporantances for each model and save the
