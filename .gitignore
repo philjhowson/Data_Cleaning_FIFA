@@ -1,8 +1,11 @@
 #Ignore data, metrics, models, and images
-data/
+data/raw_data/
+data/processed_data/
 metrics/
 models/
 images/
+
+
 
 #track .dvc and .gitignore files
 !data/*.dvc
