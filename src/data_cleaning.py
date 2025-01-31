@@ -1,6 +1,6 @@
 import pandas as pd
 
-data = pd.read_csv('data/raw_data/fifa21 raw data v2.csv')
+data = pd.read_csv('data/raw_data/fifa21_raw_data.csv')
 
 """
 this is a large dataset, so I want to find just the columns with na values that need to be watched.
