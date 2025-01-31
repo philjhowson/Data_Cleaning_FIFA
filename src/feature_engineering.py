@@ -2,6 +2,8 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.preprocessing import OneHotEncoder, MinMaxScaler
+from sklearn.model_selection import train_test_split
+import pickle
 
 data = pd.read_csv('data/processed_data/cleaned_data.csv')
 
@@ -50,3 +52,18 @@ X = pd.concat([scaled, already_scaled], axis = 1)
 
 y.to_csv('data/processed_data/y_data.csv', index = False)
 X.to_csv('data/processed_data/X_data.csv', index = False)
+
+with open('data/processed_data/strong_correlations.pkl', 'rb') as f:
+    strong = pickle.load(f)
+
+with open('data/processed_data/drop_columns.pkl', 'rb') as f:
+    drop_columns = pickle.load(f)
+
+X = X[strong].drop(columns = drop_columns)
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.30, random_state = 42)
+
+X_train.to_csv('data/processed_data/X_train.csv', index = False)
+X_test.to_csv('data/processed_data/X_test.csv', index = False)
+y_train.to_csv('data/processed_data/y_train.csv', index = False)
+y_test.to_csv('data/processed_data/y_test.csv', index = False)

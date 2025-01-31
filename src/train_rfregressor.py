@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-from sklearn.model_selection import train_test_split, GridSearchCV
+from sklearn.model_selection import GridSearchCV
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import r2_score
 import pickle
@@ -11,23 +11,10 @@ drop to reduce multicolinarity. Load in the X and y dataset
 and then do a train_test_split and save those files.
 """
 
-with open('data/processed_data/strong_correlations.pkl', 'rb') as f:
-    strong = pickle.load(f)
-
-with open('data/processed_data/drop_columns.pkl', 'rb') as f:
-    drop_columns = pickle.load(f)
-
-X = pd.read_csv('data/processed_data/X_data.csv')
-y = pd.read_csv('data/processed_data/y_data.csv')
-
-X = X[strong].drop(columns = drop_columns)
-
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.30, random_state = 42)
-
-X_train.to_csv('data/processed_data/X_train.csv', index = False)
-X_test.to_csv('data/processed_data/X_test.csv', index = False)
-y_train.to_csv('data/processed_data/y_train.csv', index = False)
-y_test.to_csv('data/processed_data/y_test.csv', index = False)
+X_train = pd.read_csv('data/processed_data/X_train.csv')
+X_test = pd.read_csv('data/processed_data/X_test.csv')
+y_train = pd.read_csv('data/processed_data/y_train.csv')
+y_test = pd.read_csv('data/processed_data/y_test.csv')
 
 y_train_array = y_train.squeeze().to_numpy()
 
