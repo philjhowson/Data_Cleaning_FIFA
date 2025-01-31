@@ -64,12 +64,13 @@ print(f"Training r2 score: {rfr_train_score}\nTest r2 score: {rfr_test_score}")
 with open('models/RandomForestRegressor.pkl', 'wb') as f:
     pickle.dump(rfr, f)
 
-with open("metrics/rfr_scores.json", "w") as json:
-    json.dump(rfr_scores, json, indent = 4)
+with open("metrics/rfr_scores.json", "w") as f:
+    json.dump(rfr_scores, f, indent = 4)
 
-feature_importance_rfr = pd.DataFrame({
+feature_importance_rfr = {
     'Feature': X_train.columns,
     'Importance_rfr': rfr.feature_importances_
-})
+}
 
-feature_importance_rfr.to_csv('metrics/feature_importance_rfr.csv', index = False)
+with open("metrics/feature_importance_rfr.json", "w") as f:
+    json.dump(feature_importance_rfr, f, indent = 4)
