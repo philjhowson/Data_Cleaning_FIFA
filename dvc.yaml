@@ -15,6 +15,8 @@ stages:
       - data/processed_data/strong_correlations.pkl
       - data/processed_data/weak_correlations.pkl
       - data/processed_data/drop_columns.pkl
+      - images/scatter_plots_vs_wage.png
+      - images/strong_correlation_heatmap.png
   engineer:
     cmd: python src/feature_engineering.py
     deps:

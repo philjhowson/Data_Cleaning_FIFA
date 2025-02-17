@@ -20,17 +20,25 @@ for column in data.columns:
         categorical.append(column)
 
 """
-generates a scatterplot for each numerical feature to
-compare it against wage and see the relationship.
+generates a scatterplot for selected numerical feature to
+compare it against wage and see the relationship. I only
+do some features here for ease of plotting, but in full data
+exploration, all features are initially compared with wage.
 """
 
-fig, ax = plt.subplots(23, 3, figsize = (15, 100))
+features = ['Value (€M)', 'Hits', 'IR', 'Total Stats', 'POT', '↓OVA']
+
+fig, ax = plt.subplots(2, 3, figsize = (15, 10))
 
 for index, axes in enumerate(ax.flat):
-    axes.scatter(data[numerical[index]], data['Wage (€K)'])
-    axes.set_title(f"{numerical[index]} vs Wage (€K)")
-    axes.set_xlabel(f"{numerical[index]}")
+    axes.scatter(data[features[index]], data['Wage (€K)'])
+    axes.set_title(f"{features[index]} vs Wage (€K)")
+    axes.set_xlabel(f"{features[index]}")
     axes.set_ylabel('Wage (€K)')
+
+plt.tight_layout();
+
+plt.savefig("images/scatter_plots_vs_wage.png")
 
 """
 generate a correlation matrix of all the features, then remove
@@ -92,7 +100,7 @@ for i, column in enumerate(correlation_matrix.columns):
 
 """
 Looking at the short passing stat it has seems that 'Total Stats'
-correlates strong not only with 'Short Passing', but all the other
+correlates strongly not only with 'Short Passing', but all the other
 metrics, but it makes more sense from a feature point of view to
 keep 'Total Stats' over 'Short Passing' since it represents the
 skill set as a whole of the player.
@@ -115,3 +123,7 @@ reduced_corr_mat = reduced_corr.corr()
 
 plt.figure(figsize = (15, 15))
 sns.heatmap(reduced_corr_mat, annot = True, cmap = 'coolwarm', fmt = '.2f', cbar = True);
+
+plt.tight_layout();
+
+plt.savefig("images/strong_correlation_heatmap.png")

@@ -319,10 +319,9 @@ are saved.
 """
 
 shap_values = shap_values.squeeze(-1)
-shap.summary_plot(shap_values, X_test_sample, feature_names = x_test.columns)
-
+shap.summary_plot(shap_values, X_test_sample, feature_names = x_test.columns, show = False)
+plt.tight_layout()
 plt.savefig('images/shap_summary_plot.png', format = 'png')
-plt.close()
 
 mean_shap_values = np.abs(shap_values).mean(axis = 0).flatten()
 total_importance = mean_shap_values.sum()
