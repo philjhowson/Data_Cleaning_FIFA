@@ -7,9 +7,11 @@ this project focuses on the steps leading up to model training. The dataset can 
 
 [FIFA 21 messy, raw dataset for cleaning/exploring](https://www.kaggle.com/datasets/yagunnersya/fifa-21-messy-raw-dataset-for-cleaning-exploring)
 
-I also used dagshub for data versioning and storage of processed data and metrics:
+I also used DagsHub for data versioning and storage of processed data and metrics:
 
-[dagshub](https://dagshub.com/philjhowson/Data_Cleaning_FIFA)
+[DagsHub](https://dagshub.com/philjhowson/Data_Cleaning_FIFA)
+
+Click [here](https://fifadatacleaning.streamlit.app/) to view the Streamlit app associated with this project.
 
 ## Project Organization
 ------------------------------------------------------------------------
