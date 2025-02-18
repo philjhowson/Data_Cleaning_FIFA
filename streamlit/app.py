@@ -84,7 +84,7 @@ div.main > div {
 )
 
 
-st.sidebar.image("images/logo.png", use_container_width = False)
+st.sidebar.image("streamlit/images/logo.png", use_container_width = False)
 
 menu = st.sidebar.radio("Menu", ["Project Description",
                                  "Data Cleaning",
