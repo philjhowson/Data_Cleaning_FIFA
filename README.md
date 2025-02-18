@@ -27,4 +27,5 @@ I also used dagshub for data versioning and storage of processed data and metric
     ├── .gitignore
     ├── README.md
     ├── dvc.lock #dvc data versioning
-    └── dvc.yaml #dvc pipeline for reproducability
+    ├── dvc.yaml #dvc pipeline for reproducability
+    └── requirements.txt
