@@ -2,7 +2,6 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 import pickle
-from statsmodels.stats.outliers_influence import variance_inflation_factor
 
 data = pd.read_csv('data/processed_data/cleaned_data.csv')
 

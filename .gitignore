@@ -8,3 +8,5 @@ images/
 /metrics
 /models
 __pycache__/
+
+!streamlit/images/

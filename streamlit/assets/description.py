@@ -3,7 +3,7 @@ from PIL import Image
 
 def description():
 
-    with Image.open('streamlit/images/FIFA_logo.png') as img:
+    with Image.open('streamlit/images/FIFA_Logo.png') as img:
         st.image(img)
 
     st.markdown("""<h2 style = "font-size: 1.5em;"><u>Data Cleaning
